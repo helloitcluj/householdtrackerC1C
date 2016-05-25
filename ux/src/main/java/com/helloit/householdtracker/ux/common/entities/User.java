@@ -1,9 +1,9 @@
-package com.helloit.householdtracker.ux.spring.common.entities;
+package com.helloit.householdtracker.ux.common.entities;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "new_user")
+@Table(name = "USERS")
 public class User {
 
     @Id

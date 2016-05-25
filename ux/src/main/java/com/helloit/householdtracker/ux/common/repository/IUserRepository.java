@@ -1,6 +1,6 @@
-package com.helloit.householdtracker.ux.spring.common.repository;
+package com.helloit.householdtracker.ux.common.repository;
 
-import com.helloit.householdtracker.ux.spring.common.entities.User;
+import com.helloit.householdtracker.ux.common.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
