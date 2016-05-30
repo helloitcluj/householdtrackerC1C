@@ -3,7 +3,7 @@ package com.helloit.householdtracker.ux.common.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "USERS")
+@Table(name = "users")
 public class User {
 
     @Id
@@ -36,5 +36,11 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setName(String test) {
+    }
+
+    public void setEmplNumber(int i) {
     }
 }
