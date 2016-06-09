@@ -34,3 +34,7 @@ dependencies {
 }
 
 
+task recreateSchema(type: JavaExec) {
+    main = "com.helloit.householdtracker.ux.tools.SchemaManager"
+    classpath = sourceSets.main.runtimeClasspath
+}
