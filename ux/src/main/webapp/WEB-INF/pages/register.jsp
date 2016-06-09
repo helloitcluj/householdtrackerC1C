@@ -2,10 +2,9 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Test</title>
+    <title></title>
 </head>
 <body>
-<h1>${message}</h1>
+Account Ceated !!!!!
 </body>
 </html>

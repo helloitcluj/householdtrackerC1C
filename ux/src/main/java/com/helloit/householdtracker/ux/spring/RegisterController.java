@@ -5,25 +5,21 @@ import com.helloit.householdtracker.ux.common.repository.IUserRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 
 
-@Service
 @Controller
-@RequestMapping("register")
 public class RegisterController {
 
-    public static final String WARNING_MESSAGE = "The passwords you have provided doesn't match, please retype it!";
+    public static final String MISMATCHED_PASSWORD_MESSAGE = "The passwords you have provided doesn't match, please retype it!";
+    public static final String ERROR = "error";
     private static final Logger LOGGER = LogManager.getLogger(RegisterController.class);
     private static final String REGISTER = "register";
-
     @Resource
     private IUserRepository userRepository;
 
@@ -31,23 +27,29 @@ public class RegisterController {
     }
 
     @Transactional
-    @RequestMapping(method = RequestMethod.GET)
-    public String printWelcome(String name, String password, @RequestParam(name = "retypedPassword") String rePassword, final ModelMap model) {
-        LOGGER.info("welcome!");
+    @RequestMapping(path = "register", method = RequestMethod.POST)
+    public String register(final String name, final String password, final String retypedPassword, final ModelMap model) {
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Registering user " + name);
+        }
 
-        final User entity = new User();
-        entity.setName(name);
-        entity.setPassword(password);
+        final String result;
 
-        if (password.equals(rePassword)) {
-            final User savedEntity = userRepository.save(entity);
+        if (password.equals(retypedPassword)) {
+            final User entity = new User();
+            entity.setName(name);
+            entity.setPassword(password);
+
+            userRepository.save(entity);
+
+            result = REGISTER;
         } else {
-            model.addAttribute("message", WARNING_MESSAGE);
-            //showMessageDialog (null, "The typed passwords doesn't match, please correct them!");
+            model.addAttribute("message", MISMATCHED_PASSWORD_MESSAGE);
+
+            result = ERROR;
 
         }
 
-
-        return REGISTER;
+        return result;
     }
 }
