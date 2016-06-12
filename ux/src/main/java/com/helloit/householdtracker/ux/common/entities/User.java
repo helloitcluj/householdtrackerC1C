@@ -37,10 +37,4 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    public void setName(String test) {
-    }
-
-    public void setEmplNumber(int i) {
-    }
 }

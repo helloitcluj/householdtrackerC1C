@@ -2,9 +2,9 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
-    <title></title>
+    <title>Create Account</title>
 </head>
 <body>
-Account Ceated !!!!!
+Account Created !!!!!
 </body>
 </html>

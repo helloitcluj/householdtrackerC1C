@@ -1,0 +1,53 @@
+package com.helloit.householdtracker.ux.spring;
+
+import com.helloit.householdtracker.ux.common.services.IAccountService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+
+@Controller
+@RequestMapping("account")
+public class AccountController {
+
+    public static final String ERROR = "error";
+    public static final String REGISTER = "register";
+    public static final String MISMATCHED_PASSWORD_MESSAGE = "The passwords you have provided doesn't match, please retype it!";
+    public static final String ACCOUNT_EXISTS_MESSAGE = "The account already exist!";
+
+    public static final String MESSAGE_TAG = "message";
+    private static final Logger LOGGER = LogManager.getLogger(AccountController.class);
+
+
+    @Autowired
+    private IAccountService accountService;
+
+    @RequestMapping(path = "register", method = RequestMethod.POST)
+    public String register(final String username, final String password, final String retypedPassword, final ModelMap model) {
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Registering user " + username);
+        }
+
+        final String result;
+
+        final IAccountService.CreationOutComes outCome = accountService.createAccount(username, password, retypedPassword);
+
+        if (outCome == IAccountService.CreationOutComes.SUCCESS) {
+            result = REGISTER;
+        } else if (outCome == IAccountService.CreationOutComes.PASSWORD_DID_NOT_MATCH) {
+            model.addAttribute(MESSAGE_TAG, MISMATCHED_PASSWORD_MESSAGE);
+            result = ERROR;
+        } else if (outCome == IAccountService.CreationOutComes.EXISTING_ACCOUNT) {
+            model.addAttribute(MESSAGE_TAG, ACCOUNT_EXISTS_MESSAGE);
+            result = ERROR;
+        } else {
+            throw new UnsupportedOperationException("Not supported case!");
+        }
+
+        return result;
+    }
+}
