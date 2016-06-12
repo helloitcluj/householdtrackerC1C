@@ -9,18 +9,23 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpSession;
+
 
 @Controller
 @RequestMapping("account")
 public class AccountController {
 
+    private static final Logger LOGGER = LogManager.getLogger(AccountController.class);
+
     public static final String ERROR = "error";
     public static final String REGISTER = "register";
     public static final String MISMATCHED_PASSWORD_MESSAGE = "The passwords you have provided doesn't match, please retype it!";
-    public static final String ACCOUNT_EXISTS_MESSAGE = "The account already exist!";
 
+    public static final String ACCOUNT_EXISTS_MESSAGE = "The account already exist!";
     public static final String MESSAGE_TAG = "message";
-    private static final Logger LOGGER = LogManager.getLogger(AccountController.class);
+    public static final String AUTHENTICATION_FAILURE_MESSAGE = "Authentication failure!";
+    public static final String CURRENT_PRINCIPAL_TAG = "currentPrincipal";
 
 
     @Autowired
@@ -46,6 +51,28 @@ public class AccountController {
             result = ERROR;
         } else {
             throw new UnsupportedOperationException("Not supported case!");
+        }
+
+        return result;
+    }
+
+    @RequestMapping(path = "login", method = RequestMethod.POST)
+    public String login(final String username, final String password, final ModelMap model, final HttpSession session) {
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Logging in user " + username);
+        }
+
+        final String result;
+
+        final boolean outCome = accountService.authenticate(username, password);
+
+        if (outCome) {
+            result = "redirect:/";
+            session.setAttribute(CURRENT_PRINCIPAL_TAG, username);
+
+        } else {
+            result = ERROR;
+            model.addAttribute(MESSAGE_TAG, AUTHENTICATION_FAILURE_MESSAGE);
         }
 
         return result;

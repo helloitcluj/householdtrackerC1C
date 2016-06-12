@@ -2,11 +2,9 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
-    <title>Create Account</title>
+    <title>Household tracker</title>
 </head>
 <body>
-Account Created !!!!!
-<br>
-You can <a href="login_account.html">login</a> now!
+Welcome!
 </body>
 </html>

@@ -20,6 +20,13 @@ public class AccountService implements IAccountService {
 
 
     @Override
+    public boolean authenticate(final String username,final String password) {
+        final User user = userRepository.findOneByUsername(username);
+
+        return user != null && password.equals(user.getPassword());
+    }
+
+    @Override
     public CreationOutComes createAccount(final String username, final String password, final String retypedPassword) {
         CreationOutComes result;
 
