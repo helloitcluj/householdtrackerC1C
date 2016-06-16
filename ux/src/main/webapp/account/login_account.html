@@ -16,17 +16,18 @@
 
 <h1>Expense Tracker</h1>
 
-<form action="login" method="post">
+<form id="mainForm" action="loginAjax" method="post">
     Username:
     <br>
-    <input type="text" name="username">
+    <input type="text" name="username" id="username">
     <br>
     Password:
     <br>
-    <input type="password" name="password">
+    <input type="password" name="password" id="password">
     <br>
     <input type="submit" value="Submit">
     <br>
+    <div id="errorMessage"></div>
     Don't have an account? Click <a href="create_account.html">here</a>!
 </form>
 
@@ -38,6 +39,26 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="../js/vendor/jquery.min.js"><\/script>')</script>
 <script src="../js/vendor/bootstrap.min.js"></script>
+<script type="text/javascript">
+  $( function() {
+      $("#mainForm").submit(function (event) {
+
+          event.preventDefault();
+
+          var posting = $.post("loginAjax", {username: $("#username").val(), password: $("#password").val()});
+
+          posting.done( function(message) {
+            if (message === "") {
+                window.location.href = "../";
+            } else {
+                $("#errorMessage").empty().append(message);
+            }
+          });
+      });
+
+
+  });
+</script>
 
 </body>
 

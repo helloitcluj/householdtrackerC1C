@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 
@@ -77,4 +78,26 @@ public class AccountController {
 
         return result;
     }
+
+    @RequestMapping(path = "loginAjax", method = RequestMethod.POST)
+    public @ResponseBody String loginAjax(final String username, final String password, final HttpSession session) {
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Logging in user " + username);
+        }
+
+        final String result;
+
+        final boolean outCome = accountService.authenticate(username, password);
+
+        if (outCome) {
+            result = null;
+            session.setAttribute(CURRENT_PRINCIPAL_TAG, username);
+
+        } else {
+            result = AUTHENTICATION_FAILURE_MESSAGE;
+        }
+
+        return result;
+    }
+
 }
