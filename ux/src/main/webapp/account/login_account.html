@@ -26,7 +26,7 @@
     <input type="password" name="password" id="password">
     <br>
     <input type="submit" value="Submit">
-    <br>
+    <br/><br/>
     <div id="errorMessage"></div>
     Don't have an account? Click <a href="create_account.html">here</a>!
 </form>
@@ -51,15 +51,14 @@
             if (message === "") {
                 window.location.href = "../";
             } else {
-                $("#errorMessage").empty().append(message);
+                var $messageDiv = $('<div class="alert alert-warning" role="alert"></div>');
+                $messageDiv.append(message)
+                $("#errorMessage").empty().append($messageDiv);
             }
           });
-
-          posting.fail(function (result) {
-              $("#errorMessage").empty().append("Could not find server");
+          posting.fail (function (result){
+              $("#errorMessage").empty().append("Could not find server!");
           });
-
-
       });
 
 
