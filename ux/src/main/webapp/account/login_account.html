@@ -54,6 +54,12 @@
                 $("#errorMessage").empty().append(message);
             }
           });
+
+          posting.fail(function (result) {
+              $("#errorMessage").empty().append("Could not find server");
+          });
+
+
       });
 
 
