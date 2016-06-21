@@ -79,6 +79,30 @@ public class AccountController {
         return result;
     }
 
+    @RequestMapping(path = "registerAjax", method = RequestMethod.POST)
+    public @ResponseBody String registerAjax(final String username, final String password, final String retypedPassword) {
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Registering user " + username);
+        }
+
+        final String result;
+
+        final IAccountService.CreationOutComes outCome = accountService.createAccount(username, password, retypedPassword);
+
+        if (outCome == IAccountService.CreationOutComes.SUCCESS) {
+            result = null;
+        } else if (outCome == IAccountService.CreationOutComes.PASSWORD_DID_NOT_MATCH) {
+            result = MISMATCHED_PASSWORD_MESSAGE;
+        } else if (outCome == IAccountService.CreationOutComes.EXISTING_ACCOUNT) {
+            result = ACCOUNT_EXISTS_MESSAGE;
+        } else {
+            throw new UnsupportedOperationException("Not supported case!");
+        }
+
+        return result;
+    }
+
+
     @RequestMapping(path = "loginAjax", method = RequestMethod.POST)
     public @ResponseBody String loginAjax(final String username, final String password, final HttpSession session) {
         if (LOGGER.isDebugEnabled()) {
