@@ -20,19 +20,9 @@ public class HomeController {
 
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
-    public String home(final HttpSession session) {
+    public String home() {
 
-        final String result;
-
-        final Object userName = session.getAttribute(AccountController.CURRENT_PRINCIPAL_TAG);
-
-        if (userName != null) {
-            result = HOME;
-        } else {
-            result = "redirect:/account/login_account.html";
-        }
-
-        return result;
+        return HOME;
     }
 
 
