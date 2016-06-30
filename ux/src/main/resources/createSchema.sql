@@ -4,4 +4,15 @@ CREATE TABLE users (
   id INTEGER IDENTITY PRIMARY KEY,
   username VARCHAR(30) UNIQUE,
   password VARCHAR(10),
+  );
+
+CREATE TABLE expense (
+  id INTEGER IDENTITY PRIMARY KEY,
+  amount DOUBLE ,
+  date TIMESTAMP ,
+  description VARCHAR(30),
+  accountId INTEGER NOT NULL
+
 );
+
+ALERT TABLE expense ADD FOREING KEY (accountId) REFERENCES users (id);
