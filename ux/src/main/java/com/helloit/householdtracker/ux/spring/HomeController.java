@@ -16,13 +16,13 @@ import javax.servlet.http.HttpSession;
 public class HomeController {
 
     private static final Logger LOGGER = LogManager.getLogger(HomeController.class);
-    private static final String HOME = "homepage";
+
 
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public String home() {
 
-        return HOME;
+        return "redirect:/index.html";
     }
 
 
