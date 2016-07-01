@@ -39,8 +39,6 @@ public class SecurityFilter implements Filter {
                 httpServletResponse.sendRedirect(LOGIN_PAGE);
             }
         }
-
-        chain.doFilter(req, resp);
     }
 
     public void init(FilterConfig config) throws ServletException {
