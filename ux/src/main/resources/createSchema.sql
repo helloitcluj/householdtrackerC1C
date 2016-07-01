@@ -15,4 +15,4 @@ CREATE TABLE expense (
 
 );
 
-ALERT TABLE expense ADD FOREING KEY (accountId) REFERENCES users (id);
+ALTER TABLE expense ADD FOREIGN KEY (accountId) REFERENCES users (id);
