@@ -27,6 +27,12 @@ public class AccountService implements IAccountService {
     }
 
     @Override
+    public User find(String username) {
+
+        return userRepository.findOneByUsername(username);
+    }
+
+    @Override
     public CreationOutComes createAccount(final String username, final String password, final String retypedPassword) {
         CreationOutComes result;
 
