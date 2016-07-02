@@ -24,6 +24,7 @@ public class SecurityFilter implements Filter {
 
         if (requestURI.startsWith(httpServletRequest.getContextPath() + "/account/") ||
                 requestURI.startsWith(contextPath + "/css")  ||
+                requestURI.startsWith(contextPath + "/images") ||
                 requestURI.startsWith(contextPath + "/js")   ){
             chain.doFilter(req, resp);
         }else{

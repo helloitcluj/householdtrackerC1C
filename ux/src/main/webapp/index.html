@@ -13,9 +13,9 @@
     <link href="css/login_account.css" rel="stylesheet">
 </head>
 <body>
-<div class = "container" >
-    <h1>Welcome!</h1>
-    <button id="logout">Logout</button>
+<div id="mainDiv" class="container">
+
+
 </div> <!--/container-->
 <!-- Bootstrap core JavaScript
     ================================================== -->
@@ -25,18 +25,9 @@
 <script src="js/vendor/bootstrap.min.js"></script>
 <script src="js/common.js"></script>
 <script type="text/javascript">
-    $( function() {
-        $("#logout").click(function () {
 
-            var posting = $.post("account/logout");
+    $("#mainDiv").append(helloit.createNavbar());
 
-            posting.done( function() {
-                window.location.href = "account/login_account.html";
-            });
-        });
-
-
-    });
 </script>
 </body>
 </html>

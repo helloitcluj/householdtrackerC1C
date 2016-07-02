@@ -44,7 +44,13 @@
 <script src="../js/common.js"></script>
 <script type="text/javascript">
 
-  $( function() {
+    helloit.showError = function (message) {
+        var $messageDiv = $('<div class="alert alert-warning" role="alert"></div>');
+        $messageDiv.append(message)
+        $("#errorMessage").empty().append($messageDiv)
+    };
+
+    $(function () {
       $("#mainForm").submit(function (event) {
 
           event.preventDefault();
@@ -55,13 +61,11 @@
             if (message === "") {
                 window.location.href = "../";
             } else {
-                var $messageDiv = $('<div class="alert alert-warning" role="alert"></div>');
-                $messageDiv.append(message)
-                $("#errorMessage").empty().append($messageDiv);
+                helloit.showError(message);
             }
           });
           posting.fail (function (result){
-              $("#errorMessage").empty().append("Could not find server!");
+              helloit.showError("No connection!");
           });
       });
 
