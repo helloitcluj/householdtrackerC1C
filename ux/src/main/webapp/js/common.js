@@ -11,13 +11,14 @@ helloit.createNavbar = function () {
       <a class="navbar-brand" href="#">Household tracker</a>\
     <ul class="nav navbar-nav">\
       <li class="nav-item">\
-      <a class="nav-link" href=".">Home <span class="sr-only">(current)</span></a>\
+      <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>\
     </li>\
+     <li class="nav-item">\
+      <a class="nav-link" href="expense.html">Expense </a>\
     <li class="nav-item pull-xs-right">\
       <a class="nav-link" id="logout">Logout</a>\
      </li>\
      </ul>\
-\
      </div>\
      </nav>\
      ');
