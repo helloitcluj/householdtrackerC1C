@@ -32,7 +32,7 @@ public class ExpenseController {
         final User user = accountService.find(username);
 
 
-        expenseService.save(date,amount, description, user.getId());
+        expenseService.save(date, amount, description, user.getId());
 
     }
 }
