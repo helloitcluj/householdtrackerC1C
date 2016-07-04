@@ -9,7 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
-import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -26,13 +25,14 @@ public class ExpenseServiceTest {
         final  ExpenseService expenseService = new ExpenseService( repository);
 
 
-        final Calendar now = Calendar.getInstance();
-        expenseService.save(now, AMOUNT, CHOCOLATE, USER_ID);
+        final String date = "2016-07-04T15:00";
+        expenseService.save(date, AMOUNT, CHOCOLATE, USER_ID);
 
 
         Expense saveEntity = repository.getSavedEntity();
 
-        Assert.assertEquals("Should be the same", now, saveEntity.getDate());
+        Assert.assertNotNull("Should not be null", saveEntity.getDate());
+
         Assert.assertEquals("Should be the same", CHOCOLATE, saveEntity.getDescription());
         Assert.assertEquals("Should be the same", USER_ID, saveEntity.getAccountId());
 
