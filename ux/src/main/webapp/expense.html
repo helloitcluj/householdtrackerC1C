@@ -14,7 +14,7 @@
 </head>
 <body>
 <div id="mainDiv" class="container">
-    <div>
+    <div class="bg-faded">
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addExpenseModal">Add</button>
         <div class="modal fade" id="addExpenseModal" tabindex="-1" role="dialog" aria-labelledby="addExpenseModalLabel"
              aria-hidden="true">
@@ -49,6 +49,17 @@
                 </div>
             </div>
         </div>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Amount</th>
+            </tr>
+            </thead>
+            <tbody id="expenseRows">
+            </tbody>
+        </table>
     </div>
 </div> <!--/container-->
 
@@ -67,10 +78,32 @@
         $("#addExpenseModal").modal("hide");
     };
 
+    helloit.addExpenseRow = function (expense) {
+        var $row = $("<tr></tr>");
+        var $dateCol = $("<td></td>");
+        $dateCol.append(expense.date);
+        $row.append($dateCol);
+        var $descriptionCol = $("<td></td>");
+        $descriptionCol.append(expense.description);
+        $row.append($descriptionCol);
+        var $amountCol = $("<td></td>");
+        $amountCol.append(expense.amount);
+        $row.append($amountCol);
+
+        $("#expenseRows").append($row);
+
+    };
 
     $("#mainDiv").prepend(helloit.createNavbar());
 
     $(function () {
+        var dummyExpense = {
+            date : "1/1/1999",
+            amount: 43.2,
+            description: "Test"
+        };
+
+        helloit.addExpenseRow( dummyExpense );
 
         $("#save").click(function () {
 
