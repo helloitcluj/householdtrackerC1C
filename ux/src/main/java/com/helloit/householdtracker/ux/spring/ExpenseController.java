@@ -12,13 +12,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
 @Controller
 @RequestMapping(path = "expense")
 public class ExpenseController {
-
+    private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
 
     @Autowired
     private IExpenseService expenseService;
@@ -43,12 +46,22 @@ public class ExpenseController {
     @RequestMapping(path = "findAll", method = RequestMethod.POST)
     public
     @ResponseBody
-    List<Expense> findAll(final HttpSession session) {
+    List<ExpenseDTO> findAll(final HttpSession session) {
 
         final String username = (String) session.getAttribute(SecurityFilter.CURRENT_PRINCIPAL_TAG);
         final User user = accountService.find(username);
 
-        return expenseService.findAllByAccountId(user.getId());
+        List<Expense> expenses = expenseService.findAllByAccountId(user.getId());
+
+
+        List<ExpenseDTO> result = new ArrayList<ExpenseDTO>(expenses.size());
+        for (final Expense expense : expenses) {
+            final Calendar date = expense.getDate();
+            final String dateAsString = date == null ? null : formatter.format(date.getTime());
+            result.add(new ExpenseDTO(dateAsString, expense.getDescription(), expense.getAmount()));
+        }
+
+        return result;
 
     }
 }
