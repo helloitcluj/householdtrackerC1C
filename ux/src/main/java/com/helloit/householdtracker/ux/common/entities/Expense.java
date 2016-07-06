@@ -15,11 +15,16 @@ public class Expense {
 
     private  double amount ;
 
+    private  Integer accountId ;
+
+
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar date ;
 
-
     private String description;
+
+    public Expense() {
+    }
 
     public Expense(double amount, Calendar date, String description, Integer accountId) {
         this.amount = amount;
@@ -35,8 +40,6 @@ public class Expense {
     public void setAccountId(Integer accountId) {
         this.accountId = accountId;
     }
-
-    private  Integer accountId ;
 
     public Integer getId() {
         return id;

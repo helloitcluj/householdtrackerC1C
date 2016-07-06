@@ -94,16 +94,21 @@
 
     };
 
+    helloit.loadExpenses = function () {
+        var posting = $.post("expense/findAll");
+
+        posting.done(function (result) {
+            $(result).each(function () {
+                helloit.addExpenseRow( this );
+            });
+        });
+
+    };
+
     $("#mainDiv").prepend(helloit.createNavbar());
 
     $(function () {
-        var dummyExpense = {
-            date : "1/1/1999",
-            amount: 43.2,
-            description: "Test"
-        };
-
-        helloit.addExpenseRow( dummyExpense );
+        helloit.loadExpenses();
 
         $("#save").click(function () {
 

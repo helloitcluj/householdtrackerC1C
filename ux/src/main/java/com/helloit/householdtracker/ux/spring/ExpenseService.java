@@ -11,6 +11,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class ExpenseService implements IExpenseService {
@@ -34,6 +35,12 @@ public class ExpenseService implements IExpenseService {
         return expenseRepository.save(expense);
 
 
+    }
+
+    @Override
+    public List<Expense> findAllByAccountId(Integer id) {
+
+        return expenseRepository.findByAccountId(id);
     }
 
 

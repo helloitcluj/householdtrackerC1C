@@ -142,5 +142,10 @@ public class ExpenseServiceTest {
         public Expense getSavedEntity() {
             return savedEntity;
         }
+
+        @Override
+        public List<Expense> findByAccountId(Integer accountId) {
+            return null;
+        }
     }
 }
